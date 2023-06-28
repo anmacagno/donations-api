@@ -42,12 +42,16 @@ gem 'bootsnap', require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'factory_bot_rails', '~> 6.2'
   gem 'rspec-rails', '~> 6.0'
   gem 'rubocop', '~> 1.32', require: false
+  gem 'rubocop-factory_bot', '~> 2.22', require: false
   gem 'rubocop-performance', '~> 1.15', require: false
   gem 'rubocop-rails', '~> 2.15', require: false
   gem 'rubocop-rake', '~> 0.6', require: false
   gem 'rubocop-rspec', '~> 2.12', require: false
+  gem 'shoulda-matchers', '~> 5.1'
+  gem 'simplecov', '~> 0.21', require: false
 end
 
 group :development do
