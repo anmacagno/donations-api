@@ -204,7 +204,7 @@ DEPENDENCIES
   debug
   pg (~> 1.1)
   puma (~> 5.0)
-  rails (~> 7.0.5, >= 7.0.5.1)
+  rails (~> 7.0.5)
   rubocop (~> 1.32)
   rubocop-performance (~> 1.15)
   rubocop-rails (~> 2.15)
