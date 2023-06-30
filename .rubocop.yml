@@ -6,10 +6,20 @@ require:
   - rubocop-rspec
 
 AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'db/migrate/*'
+    - 'db/schema.rb'
   NewCops: enable
 
 Layout/LineLength:
   Max: 120
 
+Style/ClassAndModuleChildren:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
