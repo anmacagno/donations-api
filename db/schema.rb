@@ -10,8 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_02_002216) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "number", null: false
+    t.string "expiration", null: false
+    t.string "cvv", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "donations", force: :cascade do |t|
+    t.string "email", null: false
+    t.decimal "amount", precision: 11, scale: 2, null: false
+    t.string "currency", null: false
+    t.string "payable_type", null: false
+    t.bigint "payable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payable_type", "payable_id"], name: "index_donations_on_payable"
+  end
 
 end
