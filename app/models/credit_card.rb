@@ -10,4 +10,6 @@ class CreditCard < ApplicationRecord
   validates :expiration, format: { with: %r{\A\d{2}/\d{4}\z} }, if: -> { expiration.present? }
   validates :cvv, presence: true
   validates :cvv, format: { with: /\A\d{3}\z/ }, if: -> { cvv.present? }
+
+  encrypts :number, :expiration, :cvv
 end
