@@ -10,3 +10,8 @@ en:
               invalid: 'has an invalid format (mm/yyyy)'
             cvv:
               invalid: 'has an invalid format (3 digits)'
+  notifications_mailer:
+    gratitude:
+      subject: 'Gratitude'
+      greeting: 'Hello %{email}!'
+      content: 'Thank you very much for your donation.'

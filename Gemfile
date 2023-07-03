@@ -59,4 +59,5 @@ group :development do
   # gem "spring"
 
   gem 'database_consistency', '~> 1.7', require: false
+  gem 'letter_opener', '~> 1.8'
 end
