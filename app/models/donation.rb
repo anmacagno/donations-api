@@ -10,4 +10,7 @@ class Donation < ApplicationRecord
   validates :currency, presence: true
 
   enum :currency, { ars: 'ars', mxn: 'mxn', usd: 'usd' }, prefix: true
+
+  scope :by_start_date, ->(start_date) { where('date(created_at) >= ?', start_date) if start_date.present? }
+  scope :by_end_date, ->(end_date) { where('date(created_at) <= ?', end_date) if end_date.present? }
 end
