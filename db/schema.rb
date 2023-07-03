@@ -29,6 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_002216) do
     t.string "currency", null: false
     t.string "payable_type", null: false
     t.bigint "payable_id", null: false
+    t.text "request"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payable_type", "payable_id"], name: "index_donations_on_payable"

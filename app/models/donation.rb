@@ -11,6 +11,8 @@ class Donation < ApplicationRecord
 
   enum :currency, { ars: 'ars', mxn: 'mxn', usd: 'usd' }, prefix: true
 
+  store :request, accessors: %i[remote_ip user_agent], coder: JSON
+
   scope :by_start_date, ->(start_date) { where('date(created_at) >= ?', start_date) if start_date.present? }
   scope :by_end_date, ->(end_date) { where('date(created_at) <= ?', end_date) if end_date.present? }
 end

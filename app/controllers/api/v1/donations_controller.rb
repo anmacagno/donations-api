@@ -8,7 +8,7 @@ class Api::V1::DonationsController < ApplicationController
   end
 
   def create
-    @donation = Donations::CreateService.call(donation_params)
+    @donation = Donations::CreateService.call(donation_params.merge(request_params))
     NotificationsMailer.with(donation: @donation).gratitude.deliver_later
   end
 
