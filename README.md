@@ -23,19 +23,19 @@ The API consists of the following endpoints:
 ### Check out the repository
 
 ```bash
-$ git clone https://github.com/anmacagno/donations-api.git
+git clone https://github.com/anmacagno/donations-api.git
 ```
 
 ### Install the dependencies
 
 ```bash
-$ bundle install
+bundle install
 ```
 
 ### Setup the database
 
 ```bash
-$ rails db:setup
+rails db:setup
 ```
 
 Important: postgres will use the default role. This is the same name as the operating system user that initialized the database.
@@ -43,19 +43,19 @@ Important: postgres will use the default role. This is the same name as the oper
 ### Run the test suite
 
 ```bash
-$ rails rspec
+rails rspec
 ```
 
 ### Run the linter
 
 ```bash
-$ rails rubocop
+rails rubocop
 ```
 
 ### Run the server
 
 ```bash
-$ rails server
+rails server
 ```
 
 ### Test an endpoint
@@ -105,8 +105,10 @@ Don't forget to look at the tests in the **spec** folder.
 
 1. POST /login
 
+This endpoint returns the token needed for private endpoints.
+
 ```bash
-$ curl --location 'http://localhost:3000/api/v1/login' \
+curl --location 'http://localhost:3000/api/v1/login' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "user": {
@@ -119,7 +121,7 @@ $ curl --location 'http://localhost:3000/api/v1/login' \
 2. POST /donations
 
 ```bash
-$ curl --location 'http://localhost:3000/api/v1/donations' \
+curl --location 'http://localhost:3000/api/v1/donations' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "donation": {
@@ -138,15 +140,24 @@ $ curl --location 'http://localhost:3000/api/v1/donations' \
 
 3. GET /donations
 
+Without filter:
+
 ```bash
-$ curl --location 'http://localhost:3000/api/v1/donations' \
+curl --location 'http://localhost:3000/api/v1/donations' \
+--header 'Authorization: REPLACE_WITH_YOUR_TOKEN'
+```
+
+With filter:
+
+```bash
+curl --location 'http://localhost:3000/api/v1/donations?start_date=2023-07-01&end_date=2023-07-31' \
 --header 'Authorization: REPLACE_WITH_YOUR_TOKEN'
 ```
 
 4. PUT /donations/:id
 
 ```bash
-$ curl --location --request PUT 'http://localhost:3000/api/v1/donations/1' \
+curl --location --request PUT 'http://localhost:3000/api/v1/donations/1' \
 --header 'Authorization: REPLACE_WITH_YOUR_TOKEN' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -162,6 +173,6 @@ $ curl --location --request PUT 'http://localhost:3000/api/v1/donations/1' \
 5. DELETE /donations/:id
 
 ```bash
-$ curl --location --request DELETE 'http://localhost:3000/api/v1/donations/1' \
+curl --location --request DELETE 'http://localhost:3000/api/v1/donations/1' \
 --header 'Authorization: REPLACE_WITH_YOUR_TOKEN'
 ```
