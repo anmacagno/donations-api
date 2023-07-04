@@ -151,7 +151,10 @@ $ curl --location --request PUT 'http://localhost:3000/api/v1/donations/1' \
 --header 'Content-Type: application/json' \
 --data '{
     "donation": {
-        "amount": 125
+        "amount": 125,
+        "credit_card": {
+            "cvv": "321"
+        }
     }
 }'
 ```

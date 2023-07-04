@@ -3,11 +3,16 @@
 class ApplicationController < ActionController::API
   require 'json_web_token'
 
+  rescue_from StandardError, with: :render_standard_error
   rescue_from ActionController::ParameterMissing, with: :render_parameter_missing
   rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
   rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
 
   private
+
+  def render_standard_error(error)
+    render json: { error: error.message }, status: :internal_server_error
+  end
 
   def render_parameter_missing(error)
     render json: { error: error.message }, status: :unprocessable_entity
