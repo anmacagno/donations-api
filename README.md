@@ -2,13 +2,17 @@
 
 The objective of this project is the implementation of some endpoints to manage donations. With this development I want to show some of my skills as a software engineer.
 
-For the implementation I used Ruby on Rails configured only as an API.
+For the implementation I used Ruby on Rails 7.0 configured only as an API.
 
 The API consists of the following endpoints:
-- GET /donations
-- POST /donations
-- PUT /donations/:id
-- DELETE /donations/:id
+
+- Public
+    - POST /login
+    - POST /donations
+- Private
+    - GET /donations
+    - PUT /donations/:id
+    - DELETE /donations/:id
 
 ### Prerequisites
 
@@ -58,23 +62,11 @@ $ rails server
 
 If you are testing in the local environment the base url for the endpoints is http://localhost:3000/api/v1.
 
-```bash
-$ curl --location 'http://localhost:3000/api/v1/donations' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "donation": {
-        "email": "john.doe@example.com",
-        "amount": 100,
-        "currency": "usd",
-        "credit_card": {
-            "name": "John Doe",
-            "number": "1111222233334444",
-            "expiration": "12/2023",
-            "cvv": "123"
-        }
-    }
-}'
-```
+Using the seed file, I created the following users for testing (in all cases the password is 12345678):
+
+- anmacagno@gmail.com
+- agustin@donaronline.org
+- felipe@donaronline.org
 
 ### Mailer preview
 
@@ -99,10 +91,74 @@ These are the gems that I added to the project (development and test):
 - database_consistency
 - letter_opener
 
-Also, to render JSON as response from the endpoints, I use the [jbuilder](https://github.com/rails/jbuilder) gem.
+To authenticate users, I use jwt and bcrypt gems.
+
+To render JSON as response from the endpoints, I use the jbuilder gem.
 
 ### Project structure overview
 
 Where to start? Look at the file **app/controllers/api/v1/donations_controller.rb**.
 
 Don't forget to look at the tests in the **spec** folder.
+
+### Example requests
+
+1. POST /login
+
+```bash
+$ curl --location 'http://localhost:3000/api/v1/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "user": {
+        "email": "anmacagno@gmail.com",
+        "password": "12345678"
+    }
+}'
+```
+
+2. POST /donations
+
+```bash
+$ curl --location 'http://localhost:3000/api/v1/donations' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "donation": {
+        "email": "john.doe@example.com",
+        "amount": 100,
+        "currency": "usd",
+        "credit_card": {
+            "name": "John Doe",
+            "number": "1111222233334444",
+            "expiration": "12/2023",
+            "cvv": "123"
+        }
+    }
+}'
+```
+
+3. GET /donations
+
+```bash
+$ curl --location 'http://localhost:3000/api/v1/donations' \
+--header 'Authorization: REPLACE_WITH_YOUR_TOKEN'
+```
+
+4. PUT /donations/:id
+
+```bash
+$ curl --location --request PUT 'http://localhost:3000/api/v1/donations/1' \
+--header 'Authorization: REPLACE_WITH_YOUR_TOKEN' \
+--header 'Content-Type: application/json' \
+--data '{
+    "donation": {
+        "amount": 125
+    }
+}'
+```
+
+5. DELETE /donations/:id
+
+```bash
+$ curl --location --request DELETE 'http://localhost:3000/api/v1/donations/1' \
+--header 'Authorization: REPLACE_WITH_YOUR_TOKEN'
+```
