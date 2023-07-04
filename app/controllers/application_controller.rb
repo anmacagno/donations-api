@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  require 'json_web_token'
+
   rescue_from ActionController::ParameterMissing, with: :render_parameter_missing
   rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
   rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
@@ -24,5 +26,14 @@ class ApplicationController < ActionController::API
       remote_ip: request.remote_ip,
       user_agent: request.headers['User-Agent']
     }
+  end
+
+  def authenticate_request
+    header = request.headers['Authorization']
+    header = header.split.last if header
+    decoded = JsonWebToken.decode(header)
+    @current_user = User.find(decoded[:user_id])
+  rescue ActiveRecord::RecordNotFound, JWT::DecodeError => e
+    render json: { errors: e.message }, status: :unauthorized
   end
 end

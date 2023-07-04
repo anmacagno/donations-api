@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::DonationsController < ApplicationController
+  before_action :authenticate_request, except: :create
   before_action :set_donation, only: %i[update destroy]
 
   def index
