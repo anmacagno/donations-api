@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Donations' do
+  include_context 'with mocked authentication'
+
   describe 'GET /api/v1/donations' do
     before { get api_v1_donations_path, as: :json }
 

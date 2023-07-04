@@ -15,6 +15,9 @@ AllCops:
 Layout/LineLength:
   Max: 120
 
+RSpec/AnyInstance:
+  Enabled: false
+
 Style/ClassAndModuleChildren:
   Enabled: false
 
