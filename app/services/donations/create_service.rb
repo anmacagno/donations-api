@@ -12,7 +12,7 @@ module Donations
 
     def call
       ActiveRecord::Base.transaction do
-        payable = CreditCard.create!(credit_card_params)
+        payable = CreditCard.create!(credit_card_params) if credit_card_params
         Donation.create!(donation_params.merge(payable:))
       end
     end

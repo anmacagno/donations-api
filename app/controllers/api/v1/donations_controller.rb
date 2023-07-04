@@ -14,7 +14,7 @@ class Api::V1::DonationsController < ApplicationController
   end
 
   def update
-    @donation.update!(donation_params)
+    Donations::UpdateService.call(@donation, donation_params)
   end
 
   def destroy
