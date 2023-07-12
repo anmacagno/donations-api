@@ -64,9 +64,9 @@ If you are testing in the local environment the base url for the endpoints is ht
 
 Using the seed file, I created the following users for testing (in all cases the password is 12345678):
 
-- anmacagno@gmail.com
-- agustin@donaronline.org
-- felipe@donaronline.org
+- test1@example.com
+- test2@example.com
+- test3@example.com
 
 ### Mailer preview
 

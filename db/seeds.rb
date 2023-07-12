@@ -4,9 +4,9 @@
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
 emails = %w[
-  anmacagno@gmail.com
-  agustin@donaronline.org
-  felipe@donaronline.org
+  test1@example.com
+  test2@example.com
+  test3@example.com
 ]
 
 emails.each do |email|
