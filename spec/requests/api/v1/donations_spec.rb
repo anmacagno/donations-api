@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Donations' do
-  include_context 'with mocked authentication'
+  include_context 'with authentication headers'
 
   describe 'GET /api/v1/donations' do
-    before { get api_v1_donations_path, as: :json }
+    before { get api_v1_donations_path, headers:, as: :json }
 
     it 'returns http status ok' do
       expect(response).to have_http_status(:ok)
@@ -51,7 +51,7 @@ RSpec.describe 'Api::V1::Donations' do
 
       it 'renders the json' do
         post api_v1_donations_path(params), as: :json
-        expect(response.parsed_body.keys).to eq(%w[id email amount currency])
+        expect(response.parsed_body.keys).to eq(%w[id email amount currency credit_card])
       end
 
       it 'creates the donation' do
@@ -69,7 +69,7 @@ RSpec.describe 'Api::V1::Donations' do
       let(:params) { { donation: { amount: 0 } } }
 
       it 'returns http status unprocessable entity' do
-        put api_v1_donation_path(donation, params), as: :json
+        put api_v1_donation_path(donation, params), headers:, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -78,18 +78,18 @@ RSpec.describe 'Api::V1::Donations' do
       let(:params) { { donation: { amount: 125 } } }
 
       it 'returns http status ok' do
-        put api_v1_donation_path(donation, params), as: :json
+        put api_v1_donation_path(donation, params), headers:, as: :json
         expect(response).to have_http_status(:ok)
       end
 
       it 'renders the json' do
-        put api_v1_donation_path(donation, params), as: :json
-        expect(response.parsed_body.keys).to eq(%w[id email amount currency])
+        put api_v1_donation_path(donation, params), headers:, as: :json
+        expect(response.parsed_body.keys).to eq(%w[id email amount currency credit_card])
       end
 
       it 'updates the donation' do
         expect do
-          put api_v1_donation_path(donation, params), as: :json
+          put api_v1_donation_path(donation, params), headers:, as: :json
         end.to change { donation.reload.amount }.to(125)
       end
     end
@@ -99,18 +99,18 @@ RSpec.describe 'Api::V1::Donations' do
     let!(:donation) { create(:donation) }
 
     it 'returns http status ok' do
-      delete api_v1_donation_path(donation), as: :json
+      delete api_v1_donation_path(donation), headers:, as: :json
       expect(response).to have_http_status(:ok)
     end
 
     it 'renders the json' do
-      delete api_v1_donation_path(donation), as: :json
-      expect(response.parsed_body.keys).to eq(%w[id email amount currency])
+      delete api_v1_donation_path(donation), headers:, as: :json
+      expect(response.parsed_body.keys).to eq(%w[id])
     end
 
     it 'destroys the donation' do
       expect do
-        delete api_v1_donation_path(donation), as: :json
+        delete api_v1_donation_path(donation), headers:, as: :json
       end.to change(Donation, :count).by(-1)
     end
   end

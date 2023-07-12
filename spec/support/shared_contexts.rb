@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
-RSpec.shared_context 'with mocked authentication' do
-  before do
-    allow_any_instance_of(ApplicationController).to receive(:authenticate_request).and_return(true)
+RSpec.shared_context 'with authentication headers' do
+  require 'json_web_token'
+
+  let(:user) { create(:user) }
+
+  let(:headers) do
+    {
+      'Authorization' => JsonWebToken.encode(user_id: user.id)
+    }
   end
 end
